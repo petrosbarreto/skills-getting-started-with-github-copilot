@@ -85,7 +85,15 @@ def root():
 
 @app.get("/activities")
 def get_activities():
-    return activities
+    # Prepare activities with participants
+    activities_with_participants = {
+        name: {
+            **details,
+            "participants": details["participants"]  # Include participants
+        }
+        for name, details in activities.items()
+    }
+    return activities_with_participants
 
 
 @app.post("/activities/{activity_name}/signup")
